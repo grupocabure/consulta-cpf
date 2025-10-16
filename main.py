@@ -4,7 +4,7 @@ import requests as req
 import time
 
 # expires in one hour
-TOKEN = "eyJ4NXQiOiJNalJqWkRRMU1EQmtPR1JqWW1Jek9EVmxaRFEzWkdFeU1EVTVabU5rWldVeU9XUmhPRFZpTnciLCJraWQiOiJNRGN5WVdFNU16ZzVaVFJrT1dVME1XWTBNVE0xTkdJMllqbG1OVFZrT0dJd01UVmlORGRpWldJM1pEUmpZVEpsTTJaa05Ua3dNR1F3TWpZeVlXTmxNQV9SUzI1NiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJhdXRlbnRpa3VzIiwiYXV0IjoiQVBQTElDQVRJT04iLCJhdWQiOiJYUmNnZXZSdVEwN1dLRkpRbnk3Rk5MUkdhZjBhIiwibmJmIjoxNzM2NzkxNDE1LCJhenAiOiJYUmNnZXZSdVEwN1dLRkpRbnk3Rk5MUkdhZjBhIiwic2NvcGUiOiJkZWZhdWx0IiwiaXNzIjoiaHR0cHM6XC9cL3B1Ymxpc2hlci5hcGlzZXJwcm8uc2VycHJvLmdvdi5icjo0NDNcL29hdXRoMlwvdG9rZW4iLCJyZWFsbSI6eyJzaWduaW5nX3RlbmFudCI6ImNhcmJvbi5zdXBlciJ9LCJleHAiOjE3MzY3OTUwMTUsImlhdCI6MTczNjc5MTQxNSwianRpIjoiZTVmZjhjZjItNzRhZC00ODE0LWJmNTQtZTgxZmEyNjUzY2E5In0.iHxUQ4iyujwfKBCOlmewGFRS6sgtOBMz3ykNUPLd1ts2RCC9oCZ9HIqHFGzP0sMKUxy_vrF26gQWzMCrGvoLmzp8LkNnrmRgbhAAvu5AFBHXtvfIENzrrKlS16xS4NEau-QO2u7w_zJuL8YfbF0bZp8g4InPORGQp9qrCFaHLQ6wdbA-eA0VVGpfmr62hGJXiVa7QS96eNCQTanL9fLgIdblVAGzKi8kbjX5ZZuPpmuY3UZ8KMZWXjTPcoIINeFKjvWBnzyBWrNkLgZfGqkaqlkUN_wL-3ngEusZuIr5F0kHr8SaE-7D50C1vj0dj9EkyFgQaEn4baGcj80blKBbnQ"
+TOKEN = "eyJ4NXQiOiJaVEE1WW1SbU5Ea3dNMlUxWkRZMk9EaGxOekZsWm1WbU5XSmtPREUzWW1NeE5UWmpaREUzWlEiLCJraWQiOiJOalk1TkdRMlkyTmxNV0k0T1dSak9ESmlaREV3WkdaaE5ETXpNek5qWVRRek1XWTNNamMxTjJZeE56YzJaRGMyTVdFNE56RmpZalprTVdabFl6WmhZd19SUzI1NiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJhdXRlbnRpa3VzIiwiYXV0IjoiQVBQTElDQVRJT04iLCJhdWQiOiJYUmNnZXZSdVEwN1dLRkpRbnk3Rk5MUkdhZjBhIiwibmJmIjoxNzU3ODU5MDc0LCJhenAiOiJYUmNnZXZSdVEwN1dLRkpRbnk3Rk5MUkdhZjBhIiwic2NvcGUiOiJkZWZhdWx0IiwiaXNzIjoiaHR0cHM6XC9cL3B1Ymxpc2hlci5hcGlzZXJwcm8uc2VycHJvLmdvdi5icjo0NDNcL29hdXRoMlwvdG9rZW4iLCJyZWFsbSI6eyJzaWduaW5nX3RlbmFudCI6ImNhcmJvbi5zdXBlciJ9LCJleHAiOjE3NTc4NjI2NzQsImlhdCI6MTc1Nzg1OTA3NCwianRpIjoiMDkwYWI0OGUtOWRlNC00MDAzLThlNzEtMjNkYzFjZjZmYjE1In0.m_PvWL9iExqVcqRMbiIbuhfyvxuQVrgsszKPL_SFuhn4DKOk6631znqDVtbKi-YkfiRC9qM4f9ft4YlLsR4ylbejPJnqKzIS8a4SAPWYocJGtsAxs5rT1cwsrJp8jUZuf4CKhKHHnKpl1QgEzZjSa9O6VbhqnemUvSd7bKMRta9MSiYg7O8kwavNBoEqEt9u2vk73sT6T3mLdmwlm08QlVym-9Qy5-epX45dqYCAUdenhXsZvKybs8GmBy5czXff3sJfeT70s-j0bHRULZHbBj7cdj4sSL2lV4BIJokdgjOHFM6VovFW-RaEQLXJkurJj6TDAaknkBaVyUQWRrKcKQ"
 
 
 MOCK = {
@@ -108,15 +108,17 @@ MOCK = {
     },
 }
 
+ERROR = []
+
 
 def main() -> None:
     now = datetime.datetime.now()
     timestamp = f"{now.date()}T{now.timestamp()}"
-    input_df = pd.read_csv("excluidos-202412.csv", dtype=str)
+    input_df = pd.read_csv("excluidos-202507.csv", dtype=str)
 
-    # info_by_cpf = MOCK
+    info_by_cpf = MOCK
     info_by_cpf = {}
-    for i, cpf in enumerate(input_df["CPF"][10:]):
+    for i, cpf in enumerate(input_df["CPF"][180:], 180):
         try:
             queried = query_serpro(cpf)
 
@@ -126,9 +128,15 @@ def main() -> None:
             }
             print(f"{i} {queried}")
             time.sleep(0.6)
-        except Exception:
-            info_df = pd.DataFrame.from_dict(info_by_cpf, orient="index")
-            info_df.to_csv(f"{timestamp}-cpfs.csv")
+        except Exception as e:
+            if e.args[0]["status_code"] == 404:
+                ERROR.append(i)
+                print(f"{i} ERRO")
+                continue
+            else:
+                info_df = pd.DataFrame.from_dict(info_by_cpf, orient="index")
+                info_df.to_csv(f"{timestamp}-cpfs.csv")
+                raise Exception(e)
     else:
         info_df = pd.DataFrame.from_dict(info_by_cpf, orient="index")
         info_df.to_csv(f"{timestamp}-cpfs.csv")
@@ -142,6 +150,8 @@ def query_serpro(cpf: str):
         f"{base_url}/{cpf}",
         headers={"accept": "application/json", "Authorization": f"Bearer {TOKEN}"},
     )
+    if not res.status_code == 200:
+        raise Exception(res.__dict__)
 
     return res.json()
 
